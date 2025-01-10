@@ -115,10 +115,3 @@ Two sample input files are provided in [./data](./data) (data_sample.jsonl and d
     *   **`verification_label_n=3.jsonl`:** Contains the verification results for each claim. The file name includes the `label_n` value. Each line provides the verification label (e.g., supported, contradicted, inconclusive) for each claim in `claims.jsonl`.
     *   **`veriscore_label_n=3`:** Contains the calculated average Precision, Recall, F1, etc. The file name includes the `label_n` value. This file contains a single floating-point number representing the average HalluScore across all verified claims.
 
-## Metric
-
-## Benchmark Results
-
-## Human Evaluation
-
-To be updated.
