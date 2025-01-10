@@ -5,13 +5,13 @@ HalluScore is a holistic factuality evaluation framework of long-form generation
 
 Compared to previous evaluation pipelines, HalluScore offers the following major features addressing several pain points:
 
-- **Efficient**: HalluScore adds a simple 'pre-verificatoin' task to the `claim extraction` stage during the LLM extractor's generation, drastically improving the compute efficiency and high token usages. This also lifts the burden of requirements for time-consuming and menually engineered claim revisions. In addition, asynchronous multi-step processing are implemented to optmize the pipeline efficiency.
+- **Efficient**: HalluScore (1) adds a simple 'pre-verificatoin' task to the `claim extraction` stage, drastically improving the compute efficiency and high token usages; (2) replaces sentence-level claim extraction with customizable chunking, lifting the burden of verbose claim revisions; (3) implements asynchronous multi-step processing to optmize the pipeline efficiency.
 - **Uncertainty Checking**: To systematically curb the LLM-as-judge's overconfidence during pre-verification and `claim verification`, HalluScore calibrates a *token-logprob-based threshold* as a proxy for uncertainty checking, so as to automatically check the validity of each verification label.
 - **Reliably Domain-Agnostic**: HalluScore is applicable to all QA/non-QA generations (e.g., knowledge-based QA, story-writing, reasoning), and can especially cater to evaluating long-form generation. By collecting and scraping *document-level long-context evidence* from the open web, HalluScore enables a more powerful *retrieval-augmented verifier* equipped with a dynamic and rich search-augmented knowledge source, addressing the frequent issues of irrelevant evidence/inconclusive verification. 
-- **Transparency**: The long-context evidene can also provide the verifier with the reference source to justify its verification by locating relevant texts, offering more transparency to the decompose-then-verify evaluation framework.
+- **Transparency**: ...The long-context evidene can also provide the verifier with the reference source to justify its verification by locating relevant texts, offering more transparency to the decompose-then-verify evaluation framework.
 - **Holistic Metric**: (Factual Precision vs. Factual Density)...
 
-*Under-Construction Note:* The repo currently provides a easy-to-run metric tool for factuality evaluation of any QA generation. Feel free to try it out. More features as well as details about metric design, benchmark results, and human evaluation will be provided later.
+*! Under-Construction Note:* The repo currently provides a easy-to-run metric tool for factuality evaluation of any QA generation. Feel free to try it out. More features as well as details about metric design, benchmark results, and human evaluation will be provided later.
 
 ## Repository Structure
 ```
