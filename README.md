@@ -107,8 +107,8 @@ python3 -m halluscore.halluscore \
     *   **`veriscore_label_n=3`:** Contains the calculated average HalluScore. The file name includes the `label_n` value. This file contains a single floating-point number representing the average HalluScore across all verified claims.
 
 
+## Benchmark Results
 
-
-## Experimented Benchmark & Human Evaluation
+## Human Evaluation
 
 To be updated.
