@@ -1,15 +1,17 @@
 
 # HalluScore
 
-HalluScore is a holistic factuality evaluation metric of long-form generations, focusing on two dimensions of facuality: **factual precision** and **factual density**. The evaluation pipeline follows the decompose-then-verify framework which consists of three steps: (1) `claim extraction`, (2) `evidence collection`, and (3) `claim verification`. However, HalluScore offers the following major features addressing several pain points:
+HalluScore is a holistic factuality evaluation framework of long-form generations, focusing on two dimensions of facuality: **factual precision** and **factual density**. The evaluation follows the decompose-then-verify framework which consists of three steps: (1) `claim extraction`, (2) `evidence collection`, and (3) `claim verification`. 
+
+Compared to previous evaluation pipelines, HalluScore offers the following major features addressing several pain points:
 
 - **Efficient**: HalluScore adds a simple 'pre-verificatoin' task to the `claim extraction` stage during the LLM extractor's generation, drastically improving the compute efficiency and high token usages. This also lifts the burden of requirements for time-consuming and menually engineered claim revisions. In addition, asynchronous multi-step processing are implemented to optmize the pipeline efficiency.
 - **Uncertainty Checking**: To systematically curb the LLM-as-judge's overconfidence during pre-verification and `claim verification`, HalluScore calibrates a *token-logprob-based threshold* as a proxy for uncertainty checking, so as to automatically check the validity of each verification label.
-- **Domain-Agnostic**: HalluScore is applicable to all QA/non-QA generations (e.g., knowledge-based QA, story-writing, reasoning), and can especially cater to evaluating long-form generation. [TO ADD]
-- **Reliable**: By collecting and scraping *document-level long-context evidence* from the open web, HalluScore enables a more powerful *retrieval-augmented verifier* equipped with a dynamic and rich search-augmented knowledge source, addressing the frequent issues of irrelevant evidence/inconclusive verification. The long-context evidene can also provide the verifier with the reference source to justify its verification by locating relevant texts, offering more transparency to the decompose-then-verify evaluation framework.
-- **Factual Precision vs. Factual Density**:
+- **Reliably Domain-Agnostic**: HalluScore is applicable to all QA/non-QA generations (e.g., knowledge-based QA, story-writing, reasoning), and can especially cater to evaluating long-form generation. By collecting and scraping *document-level long-context evidence* from the open web, HalluScore enables a more powerful *retrieval-augmented verifier* equipped with a dynamic and rich search-augmented knowledge source, addressing the frequent issues of irrelevant evidence/inconclusive verification. 
+- **Transparency**: The long-context evidene can also provide the verifier with the reference source to justify its verification by locating relevant texts, offering more transparency to the decompose-then-verify evaluation framework.
+- **Holistic Metric**: (Factual Precision vs. Factual Density)...
 
-*Under-Construction Note:* The repo currently provides a easy-to-run metric tool for factuality evaluation of any QA generation. Feel free to try it out. More details about score calculation, benchmark results, and human evaluation will be provided later.
+*Under-Construction Note:* The repo currently provides a easy-to-run metric tool for factuality evaluation of any QA generation. Feel free to try it out. More features as well as details about metric design, benchmark results, and human evaluation will be provided later.
 
 ## Repository Structure
 ```
@@ -96,16 +98,20 @@ python3 -m halluscore.halluscore \
 * `use_base_verification_model`: If specified, it uses an open-source model for verification. False by default.
 
 
-### Exampled output to be saved:
-*   An output folder called "data_sample/chunk_m=5_gpt-4o-mini_gpt-4o-mini/". This output folder name is constructed as follows: `{input_filename}/{extraction_method}_m={pre_veri_label_m}_{model_name_extraction}_{model_name_verification}`.
+### Saved Output:
+*   The example output will be saved in an output folder called "data_sample/chunk_m=5_gpt-4o-mini_gpt-4o-mini/". Its name is constructed as follows:
+      ```
+          {input_filename}/{extraction_method}_m={pre_veri_label_m}_{model_name_extraction}_{model_name_verification}
+      ```
 
     Within this folder, you'll find the following files:
 
     *   **`claims.jsonl`:** Contains the extracted claims from the input responses. Each line in this JSONL file represents a single claim.
     *   **`retrieved_evidence.jsonl`:** Contains the search results (evidence) retrieved for each extracted claim. Each line includes (1) the raw web-page documental evidence and (2) the retrieved evidence for each claim `claims.jsonl`
     *   **`verification_label_n=3.jsonl`:** Contains the verification results for each claim. The file name includes the `label_n` value. Each line provides the verification label (e.g., supported, contradicted, inconclusive) for each claim in `claims.jsonl`.
-    *   **`veriscore_label_n=3`:** Contains the calculated average HalluScore. The file name includes the `label_n` value. This file contains a single floating-point number representing the average HalluScore across all verified claims.
+    *   **`veriscore_label_n=3`:** Contains the calculated average Precision, Recall, F1, etc. The file name includes the `label_n` value. This file contains a single floating-point number representing the average HalluScore across all verified claims.
 
+## Metric
 
 ## Benchmark Results
 
