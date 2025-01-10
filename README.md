@@ -1,9 +1,15 @@
 
 # HalluScore
 
-This repository contains code for HalluScore, a holistic factuality metric on **factual precision** and **factual density** of long-form generations. The evaluation pipeline consists of three steps: (1) `claim extraction`, (2) `evidence collection`, and (3) `claim verification`. 
+HalluScore is a holistic factuality evaluation metric of long-form generations, focusing on two dimensions of facuality: **factual precision** and **factual density**. The evaluation pipeline follows the decompose-then-verify framework which consists of three steps: (1) `claim extraction`, (2) `evidence collection`, and (3) `claim verification`. However, HalluScore offers the following major features addressing several pain points:
 
-- The evidence colletion step involves searching and scraping from the open web, and is performed with Jina Search. Get the free API key [here](https://jina.ai/reader). Alternatively, you can replace it with your own searching API and scraping tools in [/halluscore/web_search_API.py](/halluscore/web_search_API.py).
+- **Efficient**: HalluScore adds a simple 'pre-verificatoin' task to the `claim extraction` stage during the LLM extractor's generation, drastically improving the compute efficiency and high token usages. This also lifts the burden of requirements for time-consuming and menually engineered claim revisions. In addition, asynchronous multi-step processing are implemented to optmize the pipeline efficiency.
+- **Uncertainty Checking**: To systematically curb the LLM-as-judge's overconfidence during pre-verification and `claim verification`, HalluScore calibrates a *token-logprob-based threshold* as a proxy for uncertainty checking, so as to automatically check the validity of each verification label.
+- **Domain-Agnostic**: HalluScore is applicable to all QA/non-QA generations (e.g., knowledge-based QA, story-writing, reasoning), and can especially cater to evaluating long-form generation. [TO ADD]
+- **Reliable**: By collecting and scraping *document-level long-context evidence* from the open web, HalluScore enables a more powerful *retrieval-augmented verifier* equipped with a dynamic and rich search-augmented knowledge source, addressing the frequent issues of irrelevant evidence/inconclusive verification. The long-context evidene can also provide the verifier with the reference source to justify its verification by locating relevant texts, offering more transparency to the decompose-then-verify evaluation framework.
+- **Factual Precision vs. Factual Density**:
+
+*Under-Construction Note:* The repo currently provides a easy-to-run metric tool for factuality evaluation of any QA generation. Feel free to try it out. More details about score calculation, benchmark results, and human evaluation will be provided later.
 
 ## Repository Structure
 ```
@@ -35,7 +41,7 @@ HalluScore
     pip install -r requirements.txt
     python -m spacy download en_core_web_sm
     ```
-4. Add an OpenAI or Claude API key as an environment variable in [/halluscore/.env](/halluscore/.env) for claim extractiona and claim verifictaion; then add a Jina Reader API key as well.
+4. Add an OpenAI or Claude API key as an environment variable in [/halluscore/.env](/halluscore/.env) for claim extractiona and claim verifictaion; then add a Jina Reader API key as well. The latter is used in the evidence colletion step for searching and scraping from the open web. Get the free API key [here](https://jina.ai/reader). Alternatively, you can replace the modules in [/halluscore/web_search_API.py](/halluscore/web_search_API.py) with your own searching API and scraping tools.
     ```
     OPENAI_API_KEY=[YOU OPENAI KEY]
     OPENAI_BASE_URL=[YOU OPENAI BASE_URL (if not default)]
