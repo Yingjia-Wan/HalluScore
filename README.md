@@ -46,7 +46,7 @@ HalluScore
 ## Running HalluScore
 This is an end-to-end pipeline for running HalluScore on a input file containing long-form QA generations.
 
-Example:
+### Example:
 ```
 python3 -m halluscore.halluscore \
   --data_dir ./data \
@@ -58,7 +58,7 @@ python3 -m halluscore.halluscore \
   --extraction_method chunk \
   --ignore_cache
 ```
-Arguments:
+### Arguments:
 
 * `data_dir`: Directory containing input data. `./data` by default.
 * `input_file`: Name of the input data file. Two sample input files are provided in [./data](./data) (data_sample.jsonl and data_sample2.jsonl). It should be in the `jsonl` format where each json line contains
@@ -70,7 +70,7 @@ Arguments:
 * `model_name_verification`: Name of the model used for claim verification; `gpt-4o` by default.
 * `ignore_cache`: If specified, ignores cached results and recomputes everything. False by default.
 
-Other optional arguments:
+### Other optional arguments:
 
 * `extraction_method`: Method used for extracting claims from the response. Choices are `chunk` and `sliding_window`.
     * `chunk`: Divides the response into chunks.
@@ -90,14 +90,14 @@ Other optional arguments:
 * `use_base_verification_model`: If specified, it uses an open-source model for verification. False by default.
 
 
-Exampled output to be saved: 
-*   **`chunk_m=5_gpt-4o-mini_gpt-4o-mini/`:** This output folder name is constructed as follows: `{extraction_method}_m={pre_veri_label_m}_{model_name_extraction}_{model_name_verification}`.
+### Exampled output to be saved:
+*   An output folder called "data_sample/chunk_m=5_gpt-4o-mini_gpt-4o-mini/". This output folder name is constructed as follows: `{input_filename}/{extraction_method}_m={pre_veri_label_m}_{model_name_extraction}_{model_name_verification}`.
 
     Within this folder, you'll find the following files:
 
     *   **`claims.jsonl`:** Contains the extracted claims from the input responses. Each line in this JSONL file represents a single claim.
-    *   **`retrieved_evidence.jsonl`:** Contains the search results (evidence) retrieved for each extracted claim. Each line corresponds to a claim in `claims.jsonl` and includes the retrieved evidence.
-    *   **`verification_label_n=3.jsonl`:** Contains the verification results for each claim. The file name includes the `label_n` value. Each line corresponds to a claim in `claims.jsonl` and provides the verification label (e.g., supported, contradicted, inconclusive).
+    *   **`retrieved_evidence.jsonl`:** Contains the search results (evidence) retrieved for each extracted claim. Each line includes (1) the raw web-page documental evidence and (2) the retrieved evidence for each claim `claims.jsonl`
+    *   **`verification_label_n=3.jsonl`:** Contains the verification results for each claim. The file name includes the `label_n` value. Each line provides the verification label (e.g., supported, contradicted, inconclusive) for each claim in `claims.jsonl`.
     *   **`veriscore_label_n=3`:** Contains the calculated average HalluScore. The file name includes the `label_n` value. This file contains a single floating-point number representing the average HalluScore across all verified claims.
 
 
