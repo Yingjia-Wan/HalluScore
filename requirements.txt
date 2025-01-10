@@ -1,0 +1,4 @@
+python-dotenv
+datasets
+rank_bm25
+veriscore

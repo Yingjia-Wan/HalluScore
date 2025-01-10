@@ -1,0 +1,41 @@
+# Python cache files
+/halluscore/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment files
+.halluscore/.env
+
+# macOS-specific files
+.DS_Store
+
+# Cache files (if using any system cache)
+data/cache/
+
+# IDE or editor-specific files and folders
+.vscode/
+.idea/
+
+# Jupyter Notebook checkpoints (if you're working with Jupyter notebooks)
+.ipynb_checkpoints/
+
+# Log files
+*.log
+
+# Virtual environment directories
+venv/
+env/
+
+# Build and distribution files
+build/
+dist/
+*.egg-info
+
+# Coverage reports (if using coverage tools like pytest-cov)
+.coverage
+*.coveragerc
+
+# Temporary files from text editors or system operations
+*~
+*.swp
